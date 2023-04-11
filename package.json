@@ -4,7 +4,7 @@
   "description": "Display %progress in file in VS Code Status Bar",
   "version": "0.0.1",
   "author": "Artem Sharko",
-  "publisher": "artsiomsharko",
+  "publisher": "ArtemSharko",
   "homepage": "https://github.com/artsiomsharko/file-progress",
   "repository": {
     "type": "git",
