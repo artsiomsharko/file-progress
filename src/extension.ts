@@ -1,26 +1,46 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
-import * as vscode from 'vscode';
+import * as vscode from "vscode";
 
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
-export function activate(context: vscode.ExtensionContext) {
+let myStatusBarItem: vscode.StatusBarItem;
 
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "file-progress" is now active!');
+export function activate({ subscriptions }: vscode.ExtensionContext) {
+  myStatusBarItem = vscode.window.createStatusBarItem(
+    vscode.StatusBarAlignment.Right,
+    1000
+  );
+  subscriptions.push(myStatusBarItem);
 
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('file-progress.testCommand', () => {
-		// The code you place here will be executed every time your command is executed
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from File progress!');
-	});
+  subscriptions.push(
+    vscode.window.onDidChangeActiveTextEditor(updateStatusBarItem)
+  );
+  subscriptions.push(
+    vscode.window.onDidChangeTextEditorSelection(updateStatusBarItem)
+  );
 
-	context.subscriptions.push(disposable);
+  updateStatusBarItem();
 }
 
-// This method is called when your extension is deactivated
-export function deactivate() {}
+function updateStatusBarItem(): void {
+  const editor = vscode.window.activeTextEditor;
+
+  if (editor) {
+    const percent = getFilePercentage(editor);
+
+    myStatusBarItem.text = `${percent}%`;
+    myStatusBarItem.show();
+  } else {
+    myStatusBarItem.hide();
+  }
+}
+
+function getFilePercentage(editor: vscode.TextEditor): number {
+  const curr = editor.selection.active.line;
+  const total = editor.document.lineCount - 1;
+
+  if (curr === 0) {
+    return 0;
+  } else if (curr === total) {
+    return 100;
+  } else {
+    return +((curr / total) * 100).toFixed(1);
+  }
+}
