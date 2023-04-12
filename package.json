@@ -2,7 +2,7 @@
   "name": "file-progress",
   "displayName": "File Progress in percent",
   "description": "Display %progress in file in VS Code Status Bar",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "author": "Artem Sharko",
   "publisher": "ArtemSharko",
   "homepage": "https://github.com/artsiomsharko/file-progress",
