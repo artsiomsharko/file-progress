@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 
-export function getFilePercentage(editor: vscode.TextEditor): number {
+export function getFilePercentage(editor: vscode.TextEditor, showDecimal = true): number {
   const curr = getCurrentLine(editor);
   const total = getFileLineCount(editor);
 
@@ -9,7 +9,7 @@ export function getFilePercentage(editor: vscode.TextEditor): number {
   } else if (curr === total) {
     return 100;
   } else {
-    return +((curr / total) * 100).toFixed(1);
+    return +((curr / total) * 100).toFixed(showDecimal ? 1 : 0);
   }
 }
 

@@ -25,7 +25,26 @@
   ],
   "main": "./out/extension.js",
   "contributes": {
-    "commands": []
+    "configuration": [
+      {
+        "id": "fileProgress",
+        "title": "File Progress",
+        "properties": {
+          "fileProgress.showDecimal": {
+            "type": "boolean",
+            "default": true,
+            "description": "Shows the number after the decimal point of the percentage."
+          }
+        }
+      }
+    ],
+    "commands": [
+      {
+        "category": "File Progress",
+        "command": "fileProgress.toggleDecimal",
+        "title": "Toggle decimal point of the percentage"
+      }
+    ]
   },
   "scripts": {
     "vscode:prepublish": "pnpm run compile",
