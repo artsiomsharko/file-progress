@@ -5,7 +5,7 @@ let myStatusBarItem: vscode.StatusBarItem;
 export function activate({ subscriptions }: vscode.ExtensionContext) {
   myStatusBarItem = vscode.window.createStatusBarItem(
     vscode.StatusBarAlignment.Right,
-    1000
+    998
   );
   subscriptions.push(myStatusBarItem);
 
